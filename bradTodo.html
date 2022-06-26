@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form style="text-align: center;">
+        <h3>My Todos</h3>
+        <input type="text" id="input" required/>
+        <ul></ul>
+    </form>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .completed{
+            text-decoration: line-through;
+            color: red;
+        }
+        .deleted{
+            display: none;
+        }
+        li{
+            display: flex;
+        }
+    </style>
+
+
+    <script>
+        const form = document.querySelector("form")
+        const input = document.querySelector("#input")
+        const ul = document.querySelector("ul")
+        const rmv = document.querySelector('rmv')
+        const todoArrayItems = JSON.parse(localStorage.getItem('todos')) || []
+
+        const todosInLs = JSON.parse(localStorage.getItem('todos'))
+
+        // console.log(todosInLs)
+
+        if(todosInLs){
+            
+        }
+
+        form.addEventListener("submit", (e)=>{
+            e.preventDefault()
+
+            addTodos()
+        })
+
+        function addTodos(){
+            // here i am getting the value from the input field
+            let todoItem = input.value
+
+            // checking if the input field is empty or not
+            // if it's not empty let the todo item be added
+            if(todoItem != ""){
+
+                // create an li element(i.e li tag)
+                let todoListItem = document.createElement('li')
+
+                // create a delete element(i.e rmv tag)
+                let del = document.createElement('rmv')
+
+                // create a p element(i.e paragraph tag)
+                let p = document.createElement('p')
+                
+                // writing a rm text into the rmv tag
+                del.innerText = 'rm'
+
+                // writing the value gotten from the input field
+                // into the p tag
+                p.innerText = todoItem
+
+                // Now i appended the text and the rmv to the li element
+                todoListItem.appendChild(p)
+                todoListItem.appendChild(del)
+
+                // Now i appended the li to the ul element
+                ul.appendChild(todoListItem)
+
+                // Setting back the input value to empty string
+                // after todo item has been added
+                input.value = ''
+
+                UpdateLS()
+
+                // listened for a click event on the list item to mark
+                // it as a completed item
+                todoListItem.addEventListener("click", ()=>{
+                    todoListItem.classList.toggle('completed')
+                })
+
+                // listened for a click event on the rm text to remove
+                // it an item from the DOM
+                del.addEventListener("click", (e) => {
+                    todoListItem.remove()
+                    
+                })
+            }
+
+            // UpdateLS()
+        }
+
+        function UpdateLS(){
+            todoEl = document.querySelectorAll('li')
+            const todos = []
+            todoEl.forEach(todoEl => {
+                todos.push({
+                    text:todoEl.innerText,
+                    completed: todoEl.classList.contains('completed')
+                })
+            })
+            localStorage.setItem('todos', JSON.stringify(todos))
+        }
+
+    </script>
+</body>
+</html>

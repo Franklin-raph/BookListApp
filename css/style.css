@@ -1,0 +1,37 @@
+.success, .error{
+    color: #fff;
+    margin: 5px 0px 15px 0px;
+    padding: 5px;
+}
+
+.success{
+    background-color: rgb(21, 255, 0);
+}
+
+.error{
+    background-color: #555555;
+}
+
+input[type=submit]:hover{
+    color: #fff;
+}
+
+.deleteBtn{
+    background-color: #da0d21;
+    /* width: 80px;
+    height: 1px; */
+    color: #ffffff;
+    /* padding: 5px 10px; */
+    cursor: pointer;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.completed{
+    background-color: #da0d21;
+    color: #fff;
+}
+
+.hide{
+    display: none;
+}
